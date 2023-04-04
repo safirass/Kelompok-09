@@ -3,9 +3,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class perpustakaan {
-
+    //Inisialisasi id dan password 
     public static boolean login(String noid, String password) {
-        // ganti dengan logika atau database untuk validasi username dan password
         if (noid.equals("2201") && password.equals("12345")) {
             return true;
         } else if (noid.equals("2202") && password.equals("67890")) {
@@ -15,16 +14,31 @@ public class perpustakaan {
         }
     }
 
+
     // Inisialisasi data buku
     static Map<String, Map<String, Object>> books = new HashMap<>();
+    static {
+        Map<String, Object> book1 = new HashMap<>();
+        book1.put("judul", "The Newcomer");
+        book1.put("pengarang", "Keigo Higashino");
+        book1.put("jumlah", 5);
+        books.put("001", book1);
 
-    static{
-        books.put("001",Map.of("judul","The Newcomer","pengarang","Keigo Higashino","jumlah",5));
-        books.put("002",Map.of("judul","Girls","pengarang","Minato Kanae","jumlah",3));
-        books.put("003",Map.of("judul","Melangkah","pengarang","J.S. Khairen","jumlah",2));
+        Map<String, Object> book2 = new HashMap<>();
+        book2.put("judul", "Girls");
+        book2.put("pengarang", "Minato Kanae");
+        book2.put("jumlah", 3);
+        books.put("002", book2);
+
+        Map<String, Object> book3 = new HashMap<>();
+        book3.put("judul", "Melangkah");
+        book3.put("pengarang", "J.S. Khairen");
+        book3.put("jumlah", 2);
+        books.put("003", book3);
     }
+
     // Method untuk menampilkan semua buku yang tersedia
-     static void tampilan() {
+    static void tampilan() {
         System.out.println("Buku yang tersedia di perpustakaan:");
         for (Map.Entry<String, Map<String, Object>> entry : books.entrySet()) {
             System.out.println("ID Buku: " + entry.getKey());
@@ -36,9 +50,9 @@ public class perpustakaan {
     }
 
     // Method untuk meminjam buku
-     static void pinjam(String bookId) {
-        int jumlah = (int) books.get(bookId).get("jumlah");
+    static void pinjam(String bookId) {
         if (books.containsKey(bookId)) {
+            int jumlah = (int) books.get(bookId).get("jumlah");
             if (jumlah > 0) {
                 books.get(bookId).put("jumlah", jumlah - 1);
                 System.out.println("Buku telah dipinjam.");
@@ -51,7 +65,7 @@ public class perpustakaan {
     }
 
     // Method untuk mengembalikan buku
-     static void pengembalian(String bookId) {
+    static void pengembalian(String bookId) {
         if (books.containsKey(bookId)) {
             int jumlah = (int) books.get(bookId).get("jumlah");
             books.get(bookId).put("jumlah", jumlah + 1);
@@ -92,43 +106,20 @@ public class perpustakaan {
             System.out.print("Masukkan pilihan Anda: ");
             String choice = scanner.nextLine();
 
-//            switch (choice) {
-//                case 1:
-//                    tampilan();
-//                    break;
-//                case 2:
-//                    System.out.print("Masukkan ID buku: ");
-//                    String bookId = scanner.nextLine();
-//                    pinjam(bookId);
-//                    break;
-//                case 3:
-//                    System.out.print("Masukkan ID buku: ");
-//                    String bookId = scanner.nextLine();
-//                    pengembalian(bookId);
-//                    break;
-//                case 4:
-//                    System.out.println("Terima Kasih Telah Menggunakan Layanan perpustakaan");
-//                    System.exit(0);
-//                default:
-//                    System.out.println("Pilihan tidak valid. Silahkan coba lagi.");
-//                    break;
-//            }
-
 
             if (choice.equals("1")) {
                 tampilan();
             } else if (choice.equals("2")) {
                 System.out.print("Masukkan ID buku: ");
-                String bookId = scanner.next();
-                int jumlah = (int) books.get(bookId).get("jumlah");
-                System.out.println(jumlah);
+                String bookId = scanner.nextLine();
                 pinjam(bookId);
             } else if (choice.equals("3")) {
                 System.out.print("Masukkan ID buku: ");
-                String bookId = scanner.next();
+                String bookId = scanner.nextLine();
                 pengembalian(bookId);
             } else if (choice.equals("4")) {
-                break;
+                System.out.println("Terima Kasih Telah Menggunakan Layanan perpustakaan");
+                System.exit(0);
             } else {
                 System.out.println("Pilihan tidak valid. Silahkan coba lagi.");
             }
